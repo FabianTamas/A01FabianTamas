@@ -12,24 +12,42 @@ namespace A01FabianTamas
         static void Main(string[] args)
         {
             Beolvasas();
-            Console.WriteLine("A maximum: {0}", Maximumertek());
+            Console.WriteLine("A maximum: {0}", Maximumertek(max));
+            Console.WriteLine("5 és 7 oszthatóak száma: {0}", Egyediek(i));
 
             Console.ReadKey();
         }
 
-        private static void Maximumertek()
+        private static int Egyediek(int i)
         {
-            int max = 0;
+            while (i<adat.Length && i%5==0 && i%7==0)
+            {
+                i++;
+            }
+            if (i<adat.Length)
+            {
+                return i;
+            }
+
+            StreamWriter sw = new StreamWriter("egyediek.txt", true);
+            string egyedi = i.ToString();
+            sw.WriteLine(egyedi);
+            sw.Close();
+        }
+
+        private static void Maximumertek(int max)
+        {
             for (int i = 0; i < adat.Length; i++)
             {
                 if (adat[i]>max)
                 {
-                    max = adat[i];
+                    max = adat[i];                 
                 }
             }
+            return max;
         }
 
-        private static void Beolvasas()
+        public static void Beolvasas()
         {
             StreamReader adatok = new StreamReader("adatok.dat");
             while (!adatok.EndOfStream)
@@ -38,7 +56,10 @@ namespace A01FabianTamas
                 int[] adat = new int[1000];
                 for (int i = 0; i < adat.Length; i++)
                 {
-                    adat[i] = int.Parse(atmeneti[i]);
+                    adat[i] = int.Parse(atmeneti[i])*2;                                  
+                }
+                for (int i = 0; i < adat.Length; i++)
+                {
                     Console.Write("{0}", adat[i]);
                 }
             }
